@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>HAC Miner — Download · By Mosky</title>
-  <meta name="description" content="Download HAC Miner Panel for Windows — easy GPU mining for Hacash. No GitHub account needed. By Mosky." />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <title>HAC Miner \ Download \ By Mosky</title>
+  <meta name="description" content="Download HAC Miner Panel for Windows. Easy GPU mining for Hacash. No GitHub account needed. By Mosky." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛏</text></svg>" />
   <style>
     :root {
@@ -73,21 +74,21 @@
     <h1>HAC Miner Panel</h1>
     <p class="by">By Mosky</p>
     <p class="intro">
-      Download the Windows miner in one click — no GitHub account or technical setup required.
+      Download the Windows miner in one click. No GitHub account or technical setup required.
     </p>
 
     <div class="card">
       <span class="badge">Recommended</span>
-      <h2>🖥️ Full package</h2>
-      <p>Fresh PC — includes fullnode, miners, and the setup app. Everything you need to start solo mining.</p>
-      <a id="btn-full" class="btn btn-primary loading" href="#">Loading…</a>
+      <h2>Full package</h2>
+      <p>Fresh PC: includes fullnode, miners, and the setup app. Everything you need to start solo mining.</p>
+      <a id="btn-full" class="btn btn-primary loading" href="#">Loading...</a>
       <p id="err-full" class="err" hidden></p>
     </div>
 
     <div class="card">
-      <h2>⚡ Miner only</h2>
-      <p>You already run <code style="background:#121820;padding:2px 6px;border-radius:4px">hacash.exe</code> — workers + panel only (smaller download).</p>
-      <a id="btn-only" class="btn btn-secondary loading" href="#">Loading…</a>
+      <h2>Miner only</h2>
+      <p>You already run <code>hacash.exe</code>: workers and panel only (smaller download).</p>
+      <a id="btn-only" class="btn btn-secondary loading" href="#">Loading...</a>
       <p id="err-only" class="err" hidden></p>
     </div>
 
@@ -95,13 +96,13 @@
       <h3>After download</h3>
       <ol>
         <li>Extract the ZIP to a folder (e.g. <code>C:\HacashMiner</code>)</li>
-        <li>Double-click <code>SETUP.bat</code> (full) or <code>SETUP-MINER.bat</code> (miner only)</li>
-        <li>Open <code>miner-panel.exe</code> → Settings → enter wallet → Start</li>
+        <li>Double click <code>SETUP.bat</code> (full) or <code>SETUP-MINER.bat</code> (miner only)</li>
+        <li>Open <code>miner-panel.exe</code> \ Settings \ enter wallet \ Start</li>
       </ol>
     </div>
 
     <footer>
-      <p>Windows 10/11 · AMD or NVIDIA GPU · <a href="https://github.com/Moskyera/fullnodedev/releases">All releases</a></p>
+      <p>Windows 10\11 \ AMD or NVIDIA GPU \ <a href="https://github.com/Moskyera/fullnodedev/releases">All releases</a></p>
     </footer>
   </div>
   <script>
@@ -117,7 +118,7 @@
       const btn = document.getElementById(id);
       const err = document.getElementById(errId);
       if (!asset) {
-        btn.textContent = "Not found — try GitHub Releases";
+        btn.textContent = "Not found. Try GitHub Releases";
         btn.classList.remove("loading");
         err.hidden = false;
         err.textContent = "Could not load the latest build. Use the link below.";
@@ -134,8 +135,8 @@
       .then(r => r.json())
       .then(data => {
         const assets = data.assets || [];
-        setBtn("btn-full", "err-full", pickAsset(assets, FULL_PREFIX), "⬇ Download Full package");
-        setBtn("btn-only", "err-only", pickAsset(assets, ONLY_PREFIX), "⬇ Download Miner only");
+        setBtn("btn-full", "err-full", pickAsset(assets, FULL_PREFIX), "Download Full package");
+        setBtn("btn-only", "err-only", pickAsset(assets, ONLY_PREFIX), "Download Miner only");
       })
       .catch(() => {
         ["btn-full", "btn-only"].forEach(id => {
