@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HAC Miner — Download · By Mosky</title>
+  <meta name="description" content="Download HAC Miner Panel for Windows — easy GPU mining for Hacash. By Mosky." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛏</text></svg>" />
+  <style>
+    :root {
+      --bg: #0a0e14;
+      --card: #1a2230;
+      --border: #2e3d52;
+      --text: #e8eef5;
+      --muted: #8a95a8;
+      --accent: #60a5dc;
+      --green: #3ad291;
+      --gold: #af945a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: radial-gradient(ellipse at top, #142030 0%, var(--bg) 55%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 48px 20px 64px; }
+    .logo { width: 72px; height: 72px; border-radius: 14px; margin-bottom: 16px; }
+    h1 { font-size: 2rem; font-weight: 700; margin-bottom: 6px; }
+    .by { color: var(--gold); font-size: 1rem; margin-bottom: 28px; }
+    .intro { color: var(--muted); font-size: 1.05rem; margin-bottom: 36px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    .card h2 { font-size: 1.15rem; margin-bottom: 8px; }
+    .card p { color: var(--muted); font-size: 0.95rem; margin-bottom: 18px; }
+    .btn {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s, opacity 0.15s;
+    }
+    .btn:hover { transform: translateY(-2px); opacity: 0.95; }
+    .btn-primary { background: var(--green); color: #061410; }
+    .btn-secondary { background: #243044; color: var(--text); border: 1px solid var(--border); }
+    .steps { margin-top: 32px; }
+    .steps h3 { font-size: 1rem; color: var(--accent); margin-bottom: 12px; }
+    .steps ol { padding-left: 20px; color: var(--muted); }
+    .steps li { margin-bottom: 8px; }
+    .steps code { background: #121820; padding: 2px 8px; border-radius: 6px; color: var(--text); font-size: 0.9rem; }
+    .loading { color: var(--muted); font-size: 0.9rem; }
+    .err { color: #f86c6c; font-size: 0.9rem; margin-top: 8px; }
+    footer { margin-top: 40px; text-align: center; color: var(--muted); font-size: 0.85rem; }
+    footer a { color: var(--accent); }
+    .badge { display: inline-block; background: #243044; color: var(--muted); font-size: 0.75rem; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <img class="logo" src="https://raw.githubusercontent.com/Moskyera/fullnodedev/main/miner-panel/assets/hhh.png" alt="HAC Miner" onerror="this.style.display='none'" />
+    <h1>HAC Miner Panel</h1>
+    <p class="by">By Mosky</p>
+    <p class="intro">
+      Κατέβασε τον miner για Windows — χωρίς να ξέρεις GitHub.<br />
+      Download the Windows miner — no GitHub knowledge needed.
+    </p>
+
+    <div class="card">
+      <span class="badge">Προτείνεται · Recommended</span>
+      <h2>🖥️ Πλήρες πακέτο · Full package</h2>
+      <p>Καθαρός υπολογιστής — fullnode + miners + εφαρμογή ρυθμίσεων.<br />
+         Clean PC — includes fullnode, miners, and setup app.</p>
+      <a id="btn-full" class="btn btn-primary loading" href="#">Φόρτωση… Loading…</a>
+      <p id="err-full" class="err" hidden></p>
+    </div>
+
+    <div class="card">
+      <h2>⚡ Μόνο miner · Miner only</h2>
+      <p>Έχεις ήδη <code style="background:#121820;padding:2px 6px;border-radius:4px">hacash.exe</code> — μόνο workers + panel.<br />
+         You already run the fullnode — workers + panel only.</p>
+      <a id="btn-only" class="btn btn-secondary loading" href="#">Φόρτωση… Loading…</a>
+      <p id="err-only" class="err" hidden></p>
+    </div>
+
+    <div class="steps">
+      <h3>Μετά το download · After download</h3>
+      <ol>
+        <li>Άνοιξε το ZIP σε φάκελο (π.χ. <code>C:\HacashMiner</code>)</li>
+        <li>Διπλό κλικ <code>SETUP.bat</code> (full) ή <code>SETUP-MINER.bat</code> (miner only)</li>
+        <li>Άνοιξε <code>miner-panel.exe</code> → Settings → Start</li>
+      </ol>
+    </div>
+
+    <footer>
+      <p>Windows 10/11 · AMD ή NVIDIA GPU · <a href="https://github.com/Moskyera/fullnodedev/releases">Όλες οι εκδόσεις</a></p>
+    </footer>
+  </div>
+  <script>
+    const REPO = "Moskyera/fullnodedev";
+    const FULL_PREFIX = "hacash-miner-full-windows-x64";
+    const ONLY_PREFIX = "hacash-miner-only-windows-x64";
+
+    function pickAsset(assets, prefix) {
+      return assets.find(a => a.name.startsWith(prefix));
+    }
+
+    function setBtn(id, errId, asset, labelEl) {
+      const btn = document.getElementById(id);
+      const err = document.getElementById(errId);
+      if (!asset) {
+        btn.textContent = "Δεν βρέθηκε · Not found";
+        btn.classList.remove("loading");
+        err.hidden = false;
+        err.textContent = "Δοκίμασε αργότερα ή από το GitHub Releases.";
+        btn.href = "https://github.com/Moskyera/fullnodedev/releases/latest";
+        return;
+      }
+      btn.href = asset.browser_download_url;
+      btn.textContent = labelEl + " (" + (asset.size / 1048576).toFixed(1) + " MB)";
+      btn.classList.remove("loading");
+      btn.setAttribute("download", asset.name);
+    }
+
+    fetch("https://api.github.com/repos/" + REPO + "/releases/latest")
+      .then(r => r.json())
+      .then(data => {
+        const assets = data.assets || [];
+        setBtn("btn-full", "err-full", pickAsset(assets, FULL_PREFIX),
+          "⬇ Κατέβασμα Full · Download Full");
+        setBtn("btn-only", "err-only", pickAsset(assets, ONLY_PREFIX),
+          "⬇ Κατέβασμα Miner only · Download Miner only");
+      })
+      .catch(() => {
+        ["btn-full", "btn-only"].forEach(id => {
+          const b = document.getElementById(id);
+          b.href = "https://github.com/Moskyera/fullnodedev/releases/latest";
+          b.textContent = "GitHub Releases";
+          b.classList.remove("loading");
+        });
+      });
+  </script>
+</body>
+</html>
