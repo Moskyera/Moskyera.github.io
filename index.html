@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <title>HAC Miner \ Download \ By Mosky</title>
-  <meta name="description" content="Download HAC Miner Panel for Windows. Easy GPU mining for Hacash. No GitHub account needed. By Mosky." />
+  <meta name="description" content="Download HAC Miner Panel for Windows and Linux build guide. Easy GPU mining for Hacash. By Mosky." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛏</text></svg>" />
   <style>
     :root {
@@ -30,7 +30,7 @@
     .logo { width: 72px; height: 72px; border-radius: 14px; margin-bottom: 16px; }
     h1 { font-size: 2rem; font-weight: 700; margin-bottom: 6px; }
     .by { color: var(--gold); font-size: 1rem; margin-bottom: 28px; }
-    .intro { color: var(--muted); font-size: 1.05rem; margin-bottom: 36px; }
+    .intro { color: var(--muted); font-size: 1.05rem; margin-bottom: 20px; }
     .card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -40,6 +40,7 @@
     }
     .card h2 { font-size: 1.15rem; margin-bottom: 8px; }
     .card p { color: var(--muted); font-size: 0.95rem; margin-bottom: 18px; }
+    .card p:last-child { margin-bottom: 0; }
     .btn {
       display: inline-block;
       width: 100%;
@@ -56,18 +57,36 @@
     .btn:hover { transform: translateY(-2px); opacity: 0.95; }
     .btn-primary { background: var(--green); color: #061410; }
     .btn-secondary { background: #243044; color: var(--text); border: 1px solid var(--border); }
+    .btn-linux { background: #1e3a5f; color: var(--text); border: 1px solid var(--accent); }
     .steps { margin-top: 32px; }
     .steps h3 { font-size: 1rem; color: var(--accent); margin-bottom: 12px; }
-    .steps ol { padding-left: 20px; color: var(--muted); }
+    .steps ol, .steps ul { padding-left: 20px; color: var(--muted); }
     .steps li { margin-bottom: 8px; }
-    .steps code { background: #121820; padding: 2px 8px; border-radius: 6px; color: var(--text); font-size: 0.9rem; }
+    .steps code, .card code, .linux-pre {
+      background: #121820;
+      padding: 2px 8px;
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-family: Consolas, "Courier New", monospace;
+    }
+    .linux-pre {
+      display: block;
+      padding: 14px 16px;
+      margin-top: 12px;
+      white-space: pre-wrap;
+      line-height: 1.45;
+      border: 1px solid var(--border);
+    }
     .loading { color: var(--muted); font-size: 0.9rem; }
     .err { color: #f86c6c; font-size: 0.9rem; margin-top: 8px; }
     footer { margin-top: 40px; text-align: center; color: var(--muted); font-size: 0.85rem; }
     footer a { color: var(--accent); }
-    .badge { display: inline-block; background: #243044; color: var(--muted); font-size: 0.75rem; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
+    .badge { display: inline-block; background: #243044; color: var(--muted); font-size: 0.75rem; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; margin-right: 6px; }
+    .badge-linux { color: var(--accent); border: 1px solid #2e4a6a; }
     .version { color: var(--accent); font-size: 0.9rem; margin-bottom: 10px; }
-    .highlight { color: var(--text); font-size: 0.92rem; margin-top: 10px; }
+    .highlight { color: var(--text); font-size: 0.92rem; margin-bottom: 24px; }
+    .section-title { font-size: 1.25rem; color: var(--accent); margin: 28px 0 14px; }
   </style>
 </head>
 <body>
@@ -77,9 +96,11 @@
     <p class="by">By Mosky</p>
     <p id="version" class="version">Latest release: loading...</p>
     <p class="intro">
-      Download the Windows miner in one click. No GitHub account or technical setup required.
+      Download the Windows miner in one click, or build from source on Linux. No GitHub account needed for Windows ZIPs.
     </p>
     <p class="highlight">RX 9070 XT (RDNA4): select <strong>RX 9070 XT</strong> in miner-panel → Save → Start. HAC + HACD supported.</p>
+
+    <p class="section-title">Windows</p>
 
     <div class="card">
       <span class="badge">Recommended</span>
@@ -97,16 +118,39 @@
     </div>
 
     <div class="steps">
-      <h3>After download</h3>
+      <h3>After download (Windows)</h3>
       <ol>
         <li>Extract the ZIP to a folder (e.g. <code>C:\HacashMiner</code>)</li>
         <li>Double click <code>SETUP.bat</code> (full) or <code>SETUP-MINER.bat</code> (miner only)</li>
-        <li>Open <code>miner-panel.exe</code> \ Settings \ enter wallet \ Start</li>
+        <li>Open <code>miner-panel.exe</code> → Settings → enter wallet → Start</li>
       </ol>
     </div>
 
+    <p class="section-title">Linux</p>
+
+    <div class="card">
+      <span class="badge badge-linux">Build from source</span>
+      <h2>Linux (AMD OpenCL)</h2>
+      <p>Same miners as Windows: <code>poworker</code>, <code>diaworker</code>, <code>hacash</code>, optional <code>miner-panel</code> GUI. Requires Rust + OpenCL dev packages + ROCm or AMDGPU-PRO.</p>
+      <p><strong>RX 9070 XT:</strong> ROCm 6.4+ recommended. Panel preset auto-sets <code>work_groups=64</code>.</p>
+      <code class="linux-pre">sudo apt update
+sudo apt install -y build-essential ocl-icd-opencl-dev pkg-config
+git clone https://github.com/Moskyera/fullnodedev.git
+cd fullnodedev
+chmod +x scripts/mining-amd/*.sh
+./scripts/mining-amd/build-amd-miner.sh
+./scripts/mining-amd/install-configs.sh
+./scripts/mining-amd/list-opencl-devices.sh
+
+cp hacash.config.ini target/release/
+cd target/release
+./hacash &amp;&amp; sleep 35 &amp;&amp; ./poworker</code>
+      <p style="margin-top:16px">HACD diamonds: enable <code>[diamondminer]</code> in <code>hacash.config.ini</code>, then run <code>./diaworker</code>. Reward must be legacy PRIVAKEY (<code>1...</code>).</p>
+      <a class="btn btn-linux" href="https://github.com/Moskyera/fullnodedev/blob/main/docs/MINING-LINUX.md" target="_blank" rel="noopener">Full Linux guide (MINING-LINUX.md)</a>
+    </div>
+
     <footer>
-      <p>Windows 10\11 \ AMD or NVIDIA GPU \ <a href="https://github.com/Moskyera/fullnodedev/releases">All releases</a></p>
+      <p>Windows 10/11 · Linux (build) · AMD or NVIDIA GPU · <a href="https://github.com/Moskyera/fullnodedev/releases">All releases</a></p>
     </footer>
   </div>
   <script>
@@ -140,7 +184,7 @@
       .then(data => {
         const ver = document.getElementById("version");
         if (ver && data.tag_name) {
-          ver.textContent = "Latest release: " + data.tag_name;
+          ver.textContent = "Latest release: " + data.tag_name + " (Windows ZIPs)";
         }
         const assets = data.assets || [];
         setBtn("btn-full", "err-full", pickAsset(assets, FULL_PREFIX), "Download Full package");
