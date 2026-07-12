@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <title>HAC Miner \ Download \ By Mosky</title>
-  <meta name="description" content="Download HAC Miner Panel for Windows and Linux build guide. Easy GPU mining for Hacash. By Mosky." />
+  <title>Mosky — Hacash Miner &amp; Wallet Downloads</title>
+  <meta name="description" content="Download HAC Miner Panel and Hacash Wallet (Android + Windows + Linux). Latest updates by Mosky." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛏</text></svg>" />
   <style>
     :root {
@@ -16,7 +16,7 @@
       --muted: #8a95a8;
       --accent: #60a5dc;
       --green: #3ad291;
-      --gold: #af945a;
+      --gold: #e8a838;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -28,6 +28,7 @@
     }
     .wrap { max-width: 720px; margin: 0 auto; padding: 48px 20px 64px; }
     .logo { width: 72px; height: 72px; border-radius: 14px; margin-bottom: 16px; }
+    .logo-wallet { background: #000; padding: 8px; object-fit: contain; }
     h1 { font-size: 2rem; font-weight: 700; margin-bottom: 6px; }
     .by { color: var(--gold); font-size: 1rem; margin-bottom: 28px; }
     .intro { color: var(--muted); font-size: 1.05rem; margin-bottom: 20px; }
@@ -39,6 +40,8 @@
       margin-bottom: 16px;
     }
     .card h2 { font-size: 1.15rem; margin-bottom: 8px; }
+    .card h3 { font-size: 1rem; color: var(--muted); margin: 18px 0 10px; font-weight: 600; }
+    .card h3:first-of-type { margin-top: 0; }
     .card p { color: var(--muted); font-size: 0.95rem; margin-bottom: 18px; }
     .card p:last-child { margin-bottom: 0; }
     .btn {
@@ -53,11 +56,15 @@
       border: none;
       cursor: pointer;
       transition: transform 0.15s, opacity 0.15s;
+      margin-bottom: 10px;
     }
+    .btn:last-of-type { margin-bottom: 0; }
     .btn:hover { transform: translateY(-2px); opacity: 0.95; }
     .btn-primary { background: var(--green); color: #061410; }
     .btn-secondary { background: #243044; color: var(--text); border: 1px solid var(--border); }
     .btn-linux { background: #1e3a5f; color: var(--text); border: 1px solid var(--accent); }
+    .btn-wallet { background: #3d2e10; color: var(--gold); border: 1px solid var(--gold); }
+    .btn-wallet-primary { background: var(--gold); color: #1a1200; }
     .steps { margin-top: 32px; }
     .steps h3 { font-size: 1rem; color: var(--accent); margin-bottom: 12px; }
     .steps ol, .steps ul { padding-left: 20px; color: var(--muted); }
@@ -84,9 +91,13 @@
     footer a { color: var(--accent); }
     .badge { display: inline-block; background: #243044; color: var(--muted); font-size: 0.75rem; padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; margin-right: 6px; }
     .badge-linux { color: var(--accent); border: 1px solid #2e4a6a; }
+    .badge-wallet { color: var(--gold); border: 1px solid #5a4520; }
     .version { color: var(--accent); font-size: 0.9rem; margin-bottom: 10px; }
     .highlight { color: var(--text); font-size: 0.92rem; margin-bottom: 24px; }
     .section-title { font-size: 1.25rem; color: var(--accent); margin: 28px 0 14px; }
+    .section-title-wallet { color: var(--gold); }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 40px 0 8px; }
+    .btn-row .btn { margin-bottom: 10px; }
   </style>
 </head>
 <body>
@@ -94,7 +105,7 @@
     <img class="logo" src="https://raw.githubusercontent.com/Moskyera/fullnodedev/main/miner-panel/assets/hhh.png" alt="HAC Miner" onerror="this.style.display='none'" />
     <h1>HAC Miner Panel</h1>
     <p class="by">By Mosky</p>
-    <p id="version" class="version">Latest release: loading...</p>
+    <p id="miner-version" class="version">Latest release: loading...</p>
     <p class="intro">
       Download the Windows miner in one click, or build from source on Linux. No GitHub account needed for Windows ZIPs.
     </p>
@@ -149,46 +160,115 @@ cd target/release
       <a class="btn btn-linux" href="https://github.com/Moskyera/fullnodedev/blob/main/docs/MINING-LINUX.md" target="_blank" rel="noopener">Full Linux guide (MINING-LINUX.md)</a>
     </div>
 
+    <hr class="divider" />
+
+    <img class="logo logo-wallet" src="https://raw.githubusercontent.com/Moskyera/hacash-wallet/main/apps/mobile/src/assets/hb-icon.png" alt="Hacash Wallet" onerror="this.style.display='none'" />
+    <h1>Hacash Wallet</h1>
+    <p id="wallet-version" class="version">Latest releases: loading...</p>
+    <p class="intro">
+      Official wallet for HAC, HACD, BTC, L2 Fast Pay, and Quantum (Type 4). One-click download — always the latest build from GitHub.
+    </p>
+
+    <p class="section-title section-title-wallet">Mobile — Android</p>
+
+    <div class="card">
+      <span class="badge badge-wallet">arm64 · GrapheneOS OK</span>
+      <h2>Android APK</h2>
+      <p>Install on most phones (arm64). On GrapheneOS: download in browser → Files → tap APK → allow install if prompted.</p>
+      <a id="btn-mobile" class="btn btn-wallet-primary loading" href="#">Loading...</a>
+      <p id="err-mobile" class="err" hidden></p>
+    </div>
+
+    <p class="section-title section-title-wallet">Desktop — Windows</p>
+
+    <div class="card btn-row">
+      <span class="badge badge-wallet">Recommended</span>
+      <h2>Windows x64 installer</h2>
+      <p>Full desktop wallet with installer. Includes HAC/HACD/BTC send, Fast Pay, quantum txs, Windows Hello.</p>
+      <a id="btn-win-setup" class="btn btn-wallet-primary loading" href="#">Loading...</a>
+      <a id="btn-win-msi" class="btn btn-wallet loading" href="#">Loading...</a>
+      <a id="btn-win-portable" class="btn btn-secondary loading" href="#">Loading...</a>
+      <p id="err-win" class="err" hidden></p>
+    </div>
+
+    <p class="section-title section-title-wallet">Desktop — Linux</p>
+
+    <div class="card btn-row">
+      <span class="badge badge-linux">x64</span>
+      <h2>Linux builds</h2>
+      <p>AppImage runs on most distros. .deb for Debian/Ubuntu. Portable binary needs no install.</p>
+      <a id="btn-linux-appimage" class="btn btn-wallet-primary loading" href="#">Loading...</a>
+      <a id="btn-linux-deb" class="btn btn-wallet loading" href="#">Loading...</a>
+      <a id="btn-linux-portable" class="btn btn-secondary loading" href="#">Loading...</a>
+      <p id="err-linux" class="err" hidden></p>
+      <code class="linux-pre"># AppImage
+chmod +x hacash-wallet-desktop-*-x64.AppImage
+./hacash-wallet-desktop-*-x64.AppImage
+
+# Debian/Ubuntu
+sudo dpkg -i hacash-wallet-desktop-*-x64.deb</code>
+    </div>
+
     <footer>
-      <p>Windows 10/11 · Linux (build) · AMD or NVIDIA GPU · <a href="https://github.com/Moskyera/fullnodedev/releases">All releases</a></p>
+      <p>
+        Miner: <a href="https://github.com/Moskyera/fullnodedev/releases">fullnodedev releases</a>
+        · Wallet: <a href="https://github.com/Moskyera/hacash-wallet/releases">hacash-wallet releases</a>
+      </p>
+      <p style="margin-top:8px">Windows 10/11 · Linux · Android arm64 · By Mosky</p>
     </footer>
   </div>
   <script>
-    const REPO = "Moskyera/fullnodedev";
+    const MINER_REPO = "Moskyera/fullnodedev";
+    const WALLET_REPO = "Moskyera/hacash-wallet";
     const FULL_PREFIX = "hacash-miner-full-windows-x64";
     const ONLY_PREFIX = "hacash-miner-only-windows-x64";
 
-    function pickAsset(assets, prefix) {
-      return assets.find(a => a.name.startsWith(prefix));
+    function pickAsset(assets, predicate) {
+      return (assets || []).find(predicate);
     }
 
-    function setBtn(id, errId, asset, label) {
+    function fmtMb(size) {
+      return (size / 1048576).toFixed(1) + " MB";
+    }
+
+    function setBtn(id, errId, asset, label, fallbackUrl) {
       const btn = document.getElementById(id);
-      const err = document.getElementById(errId);
+      const err = errId ? document.getElementById(errId) : null;
+      if (!btn) return;
       if (!asset) {
-        btn.textContent = "Not found. Try GitHub Releases";
+        btn.textContent = label + " — see GitHub Releases";
         btn.classList.remove("loading");
-        err.hidden = false;
-        err.textContent = "Could not load the latest build. Use the link below.";
-        btn.href = "https://github.com/Moskyera/fullnodedev/releases/latest";
+        btn.href = fallbackUrl;
+        if (err) { err.hidden = false; err.textContent = "Could not load automatically."; }
         return;
       }
       btn.href = asset.browser_download_url;
-      btn.textContent = label + " (" + (asset.size / 1048576).toFixed(1) + " MB)";
+      btn.textContent = label + " (" + fmtMb(asset.size) + ")";
       btn.classList.remove("loading");
       btn.setAttribute("download", asset.name);
     }
 
-    fetch("https://api.github.com/repos/" + REPO + "/releases/latest")
+    function latestReleaseByTag(releases, suffix) {
+      return (releases || []).find(r => r.tag_name && r.tag_name.endsWith(suffix));
+    }
+
+    // --- Miner ---
+    fetch("https://api.github.com/repos/" + MINER_REPO + "/releases/latest")
       .then(r => r.json())
       .then(data => {
-        const ver = document.getElementById("version");
+        const ver = document.getElementById("miner-version");
         if (ver && data.tag_name) {
-          ver.textContent = "Latest release: " + data.tag_name + " (Windows ZIPs)";
+          ver.textContent = "Latest miner release: " + data.tag_name;
         }
         const assets = data.assets || [];
-        setBtn("btn-full", "err-full", pickAsset(assets, FULL_PREFIX), "Download Full package");
-        setBtn("btn-only", "err-only", pickAsset(assets, ONLY_PREFIX), "Download Miner only");
+        setBtn("btn-full", "err-full",
+          pickAsset(assets, a => a.name.startsWith(FULL_PREFIX)),
+          "Download Full package",
+          "https://github.com/Moskyera/fullnodedev/releases/latest");
+        setBtn("btn-only", "err-only",
+          pickAsset(assets, a => a.name.startsWith(ONLY_PREFIX)),
+          "Download Miner only",
+          "https://github.com/Moskyera/fullnodedev/releases/latest");
       })
       .catch(() => {
         ["btn-full", "btn-only"].forEach(id => {
@@ -197,6 +277,66 @@ cd target/release
           b.textContent = "Open GitHub Releases";
           b.classList.remove("loading");
         });
+      });
+
+    // --- Wallet (mobile + desktop tags) ---
+    fetch("https://api.github.com/repos/" + WALLET_REPO + "/releases?per_page=30")
+      .then(r => r.json())
+      .then(releases => {
+        const mobile = latestReleaseByTag(releases, "-mobile");
+        const desktop = latestReleaseByTag(releases, "-desktop");
+        const ver = document.getElementById("wallet-version");
+        if (ver) {
+          const parts = [];
+          if (mobile) parts.push("Mobile " + mobile.tag_name);
+          if (desktop) parts.push("Desktop " + desktop.tag_name);
+          ver.textContent = parts.length ? "Latest: " + parts.join(" · ") : "See GitHub releases";
+        }
+
+        const mAssets = mobile ? mobile.assets : [];
+        setBtn("btn-mobile", "err-mobile",
+          pickAsset(mAssets, a => a.name.endsWith(".apk")),
+          "Download Android APK",
+          "https://github.com/Moskyera/hacash-wallet/releases");
+
+        const dAssets = desktop ? desktop.assets : [];
+        setBtn("btn-win-setup", null,
+          pickAsset(dAssets, a => a.name.includes("-setup.exe")),
+          "Windows Setup (recommended)",
+          "https://github.com/Moskyera/hacash-wallet/releases");
+        setBtn("btn-win-msi", null,
+          pickAsset(dAssets, a => a.name.endsWith(".msi")),
+          "Windows MSI installer",
+          "https://github.com/Moskyera/hacash-wallet/releases");
+        setBtn("btn-win-portable", "err-win",
+          pickAsset(dAssets, a => a.name.includes("-portable.exe")),
+          "Windows portable EXE",
+          "https://github.com/Moskyera/hacash-wallet/releases");
+        setBtn("btn-linux-appimage", null,
+          pickAsset(dAssets, a => a.name.endsWith(".AppImage")),
+          "Linux AppImage (recommended)",
+          "https://github.com/Moskyera/hacash-wallet/releases");
+        setBtn("btn-linux-deb", null,
+          pickAsset(dAssets, a => a.name.endsWith(".deb")),
+          "Linux .deb (Debian/Ubuntu)",
+          "https://github.com/Moskyera/hacash-wallet/releases");
+        setBtn("btn-linux-portable", "err-linux",
+          pickAsset(dAssets, a => a.name.includes("-portable") && !a.name.endsWith(".exe")),
+          "Linux portable binary",
+          "https://github.com/Moskyera/hacash-wallet/releases");
+      })
+      .catch(() => {
+        const fallback = "https://github.com/Moskyera/hacash-wallet/releases";
+        ["btn-mobile", "btn-win-setup", "btn-win-msi", "btn-win-portable",
+         "btn-linux-appimage", "btn-linux-deb", "btn-linux-portable"].forEach(id => {
+          const b = document.getElementById(id);
+          if (!b) return;
+          b.href = fallback;
+          b.textContent = "Open GitHub Releases";
+          b.classList.remove("loading");
+        });
+        const ver = document.getElementById("wallet-version");
+        if (ver) ver.textContent = "Could not load releases — use GitHub link below.";
       });
   </script>
 </body>
