@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <title>Mosky — Hacash Miner &amp; Wallet Downloads</title>
+  <title>Mosky · Hacash Miner &amp; Wallet Downloads</title>
   <meta name="description" content="Download HAC Miner Panel and Hacash Wallet (Android + Windows + Linux). Latest updates by Mosky." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛏</text></svg>" />
   <style>
@@ -166,10 +166,10 @@ cd target/release
     <h1>Hacash Wallet</h1>
     <p id="wallet-version" class="version">Latest releases: loading...</p>
     <p class="intro">
-      Official wallet for HAC, HACD, BTC, L2 Fast Pay, and Quantum (Type 4). One-click download — always the latest build from GitHub.
+      Official wallet for HAC, HACD, BTC, L2 Fast Pay, and Quantum (Type 4). One-click download, always the latest build from GitHub.
     </p>
 
-    <p class="section-title section-title-wallet">Mobile — Android</p>
+    <p class="section-title section-title-wallet">Mobile (Android)</p>
 
     <div class="card">
       <span class="badge badge-wallet">arm64 · GrapheneOS OK</span>
@@ -179,7 +179,7 @@ cd target/release
       <p id="err-mobile" class="err" hidden></p>
     </div>
 
-    <p class="section-title section-title-wallet">Desktop — Windows</p>
+    <p class="section-title section-title-wallet">Desktop (Windows)</p>
 
     <div class="card btn-row">
       <span class="badge badge-wallet">Recommended</span>
@@ -191,7 +191,7 @@ cd target/release
       <p id="err-win" class="err" hidden></p>
     </div>
 
-    <p class="section-title section-title-wallet">Desktop — Linux</p>
+    <p class="section-title section-title-wallet">Desktop (Linux)</p>
 
     <div class="card btn-row">
       <span class="badge badge-linux">x64</span>
@@ -236,7 +236,7 @@ sudo dpkg -i hacash-wallet-desktop-*-x64.deb</code>
       const err = errId ? document.getElementById(errId) : null;
       if (!btn) return;
       if (!asset) {
-        btn.textContent = label + " — see GitHub Releases";
+        btn.textContent = label + " (see GitHub Releases)";
         btn.classList.remove("loading");
         btn.href = fallbackUrl;
         if (err) { err.hidden = false; err.textContent = "Could not load automatically."; }
@@ -336,7 +336,7 @@ sudo dpkg -i hacash-wallet-desktop-*-x64.deb</code>
           b.classList.remove("loading");
         });
         const ver = document.getElementById("wallet-version");
-        if (ver) ver.textContent = "Could not load releases — use GitHub link below.";
+        if (ver) ver.textContent = "Could not load releases. Use GitHub link below.";
       });
   </script>
 </body>
