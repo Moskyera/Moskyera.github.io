@@ -252,10 +252,13 @@ sudo dpkg -i hacash-wallet-desktop-*-x64.deb</code>
       return (releases || []).find(r => r.tag_name && r.tag_name.endsWith(suffix));
     }
 
-    // --- Miner ---
-    fetch("https://api.github.com/repos/" + MINER_REPO + "/releases/latest")
+    // --- Miner (newest published release, including pre-release RCs) ---
+    fetch("https://api.github.com/repos/" + MINER_REPO + "/releases?per_page=30")
       .then(r => r.json())
-      .then(data => {
+      .then(list => {
+        // GitHub returns releases newest-first; take the newest non-draft one so
+        // release candidates (e.g. v0.4.1-opencl-rc.9) are offered for download.
+        const data = (Array.isArray(list) ? list : []).find(r => !r.draft) || {};
         const ver = document.getElementById("miner-version");
         if (ver && data.tag_name) {
           ver.textContent = "Latest miner release: " + data.tag_name;
