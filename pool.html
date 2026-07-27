@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HBIT pool: run your own Hacash mining pool</title>
+<style>
+  :root { color-scheme: light dark; --fg:#1b1f24; --bg:#fff; --mut:#5c6773; --line:#d8dee4; --code:#f5f7f9; --warn:#8a3d00; --warnbg:#fff4e5; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg:#e6edf3; --bg:#0d1117; --mut:#9198a1; --line:#30363d; --code:#161b22; --warn:#ffb877; --warnbg:#2b1a06; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:2rem 1.25rem 4rem; font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+         color:var(--fg); background:var(--bg); }
+  main { max-width: 46rem; margin: 0 auto; }
+  h1 { font-size: 1.9rem; line-height:1.25; margin:0 0 .4rem; }
+  h2 { font-size: 1.25rem; margin: 2.4rem 0 .6rem; padding-top:1.2rem; border-top:1px solid var(--line); }
+  h3 { font-size: 1rem; margin: 1.4rem 0 .3rem; }
+  p, li { color: var(--fg); }
+  .lede { color: var(--mut); font-size:1.05rem; margin:0 0 1.5rem; }
+  a { color: inherit; text-underline-offset: 2px; }
+  pre { background: var(--code); border:1px solid var(--line); border-radius:6px; padding:.75rem .9rem;
+        overflow-x:auto; font:13.5px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+  code { background: var(--code); padding:.1rem .3rem; border-radius:4px;
+         font:13.5px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+  pre code { background:none; padding:0; }
+  .warn { background:var(--warnbg); border-left:3px solid var(--warn); padding:.8rem 1rem; border-radius:0 6px 6px 0; margin:1.2rem 0; }
+  .warn strong { color:var(--warn); }
+  ol li, ul li { margin:.35rem 0; }
+  footer { margin-top:3rem; padding-top:1.2rem; border-top:1px solid var(--line); color:var(--mut); font-size:.9rem; }
+  table { border-collapse:collapse; width:100%; margin:1rem 0; font-size:.95rem; display:block; overflow-x:auto; }
+  th, td { text-align:left; padding:.45rem .7rem; border-bottom:1px solid var(--line); }
+  th { color:var(--mut); font-weight:600; }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Run your own Hacash mining pool</h1>
+<p class="lede">HBIT is a PPLNS payout pool for Hacash. It runs beside your own full
+node on a VPS or a mini PC. This page is the short path from a bare machine to a
+pool that pays miners.</p>
+
+<h2>Before you start</h2>
+<p>A pool holds other people's money. Everything below is written on that
+assumption, and the software refuses to start rather than guess when something
+important is missing.</p>
+
+<div class="warn">
+<p><strong>Three things you must have.</strong> A machine that stays on, with more
+than 10 GB free. A Hacash address <em>you</em> control. A passphrase you have
+written down somewhere physical. Nothing here supplies a default for any of them,
+because a default address pays a stranger and a default passphrase protects
+nobody.</p>
+</div>
+
+<h2>1. Download</h2>
+<p>Get the Linux package from the latest release:</p>
+<pre><code>curl -LO https://github.com/Moskyera/fullnodedev/releases/latest/download/hbit-pool-linux-x86_64.tar.gz</code></pre>
+
+<p>Verify it before running it. Every release is signed by GitHub with build
+provenance, and this is the only check that detects tampering:</p>
+<pre><code>gh attestation verify hbit-pool-linux-x86_64.tar.gz --repo Moskyera/fullnodedev</code></pre>
+
+<p>If that fails, delete the file. The <code>.sha256</code> beside it only catches
+a truncated download; it comes from the same place as the archive, so a matching
+checksum is not proof the file is genuine.</p>
+
+<pre><code>tar -xzf hbit-pool-linux-x86_64.tar.gz
+cd hbit-pool-linux-x86_64</code></pre>
+
+<h2>2. What is in the box</h2>
+<table>
+<tr><th>File</th><th>What it is</th></tr>
+<tr><td><code>hacash</code></td><td>The full node. The pool cannot work without one.</td></tr>
+<tr><td><code>hbit-pool-server</code></td><td>The pool: serves work, counts shares, pays out.</td></tr>
+<tr><td><code>hbit-pool-payout</code></td><td>Manual payout tool, for when you need it.</td></tr>
+<tr><td><code>SETUP-POOL.sh</code></td><td>Checks the machine and tells you what is missing.</td></tr>
+<tr><td><code>systemd/</code></td><td>Unit files, to run both as services.</td></tr>
+<tr><td><code>POOL-OPERATOR.md</code></td><td>The long version. Read it before real money.</td></tr>
+</table>
+<p>No wallet, no config and no address ship inside. You supply all three.</p>
+
+<h2>3. Set your address</h2>
+<pre><code>cp hacash.config.ini.example hacash.config.ini
+nano hacash.config.ini      # put YOUR mainnet address in [miner] reward</code></pre>
+
+<div class="warn">
+<p><strong>Type your own address.</strong> There is no default and there never will
+be one. An address you did not type yourself would receive block rewards
+permanently, with no error and no way to get them back.</p>
+</div>
+
+<h2>4. Run the check</h2>
+<pre><code>export HBIT_WALLET_PASSWORD='a long passphrase you have written down'
+./SETUP-POOL.sh</code></pre>
+<p>It refuses to continue while the reward address is empty, while
+<code>fast_sync</code> is on, while there is no passphrase, or while the disk is
+too small. Each refusal says what it costs you to ignore it. Nothing starts until
+they all pass.</p>
+
+<h2>5. Sync the node, then start the pool</h2>
+<p>In that order, and the order matters more than it looks.</p>
+<pre><code>./hacash</code></pre>
+<p>Wait for <code>all blocks sync finished</code> and for the height to stop
+jumping. From another terminal you can block until it is ready:</p>
+<pre><code>./hbit-wait-for-node.sh http://127.0.0.1:8080 0</code></pre>
+
+<div class="warn">
+<p><strong>Do not start the pool early.</strong> A node part way through the chain
+serves work for blocks the network settled years ago. Every share is worthless,
+and it does not look wrong: down at low heights each hash costs a fraction of
+normal, so the miners connected to you report a <em>higher</em> hashrate than
+usual. It reads as success while nobody earns anything.</p>
+</div>
+
+<p>Once the node is at the tip:</p>
+<pre><code>./hbit-pool-server http://127.0.0.1:8080 pool-wallet.key 0.0.0.0:9777 20 mainnet 300</code></pre>
+
+<p>The <code>20</code> is <code>share_bits</code>: how many powers of two easier a
+share is than a block. Lower makes shares harder and the payout window cover more
+time. The pool refuses a value that would make a share cost less than 2<sup>16</sup>
+hashes, and the refusal names the number that would work.</p>
+
+<h2>6. Back up the two files that matter</h2>
+<pre><code>pool-wallet.key             # the money
+pool-wallet.key.state.json  # the record of who is owed what</code></pre>
+<p>Copy both somewhere that is not this machine. If you lose them, nobody can
+recover them: not the author of this software, not a support address, not the
+network.</p>
+
+<h2>Miners connect like this</h2>
+<p>Anyone with the Hacash miner points it at your address and port. In the miner
+panel that is <em>Pool (RPC)</em> plus <code>your-host:9777</code>, with their own
+Hacash address as the worker.</p>
+
+<h2>What the pool promises</h2>
+<ul>
+<li>PPLNS over the last 4096 shares, pool-wide, no rounds.</li>
+<li>No fee, unless you change it.</li>
+<li>Block income payable 16 blocks after the pool finds it.</li>
+<li>Minimum payout 0.1 HAC.</li>
+</ul>
+<p>The running pool serves those terms at <code>/terms</code>, so a miner never has
+to take your word for them.</p>
+
+<footer>
+<p>HBIT pool is part of <a href="https://github.com/Moskyera/fullnodedev">Moskyera/fullnodedev</a>.
+Source, releases and issues are there. By Mosky.</p>
+<p>This is software that moves real money. Read <code>POOL-OPERATOR.md</code> in
+the package before you run it for anyone but yourself.</p>
+</footer>
+
+</main>
+</body>
+</html>
