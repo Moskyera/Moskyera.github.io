@@ -128,6 +128,18 @@
       <p id="err-only" class="err" hidden></p>
     </div>
 
+    <p class="section-title">Run your own pool (Linux server)</p>
+
+    <div class="card">
+      <h2>HBIT pool</h2>
+      <p>Runs beside your own full node on a VPS or mini PC and pays miners with PPLNS.
+         The package includes the fullnode, the pool, systemd units and a setup script
+         that checks the machine before anything starts.</p>
+      <a id="btn-pool" class="btn btn-secondary loading" href="#">Loading...</a>
+      <p id="err-pool" class="err" hidden></p>
+      <p style="margin-top:14px"><a href="pool.html">Install guide</a></p>
+    </div>
+
     <div class="steps">
       <h3>After download (Windows)</h3>
       <ol>
@@ -222,6 +234,7 @@ sudo dpkg -i hacash-wallet-desktop-*-x64.deb</code>
     const WALLET_REPO = "Moskyera/hacash-wallet";
     const FULL_PREFIX = "hacash-miner-full-windows-x64";
     const ONLY_PREFIX = "hacash-miner-only-windows-x64";
+    const POOL_PREFIX = "hbit-pool-linux-x86_64";
 
     function pickAsset(assets, predicate) {
       return (assets || []).find(predicate);
@@ -272,9 +285,13 @@ sudo dpkg -i hacash-wallet-desktop-*-x64.deb</code>
           pickAsset(assets, a => a.name.startsWith(ONLY_PREFIX)),
           "Download Miner only",
           "https://github.com/Moskyera/fullnodedev/releases/latest");
+        setBtn("btn-pool", "err-pool",
+          pickAsset(assets, a => a.name.startsWith(POOL_PREFIX)),
+          "Download HBIT pool (Linux)",
+          "https://github.com/Moskyera/fullnodedev/releases/latest");
       })
       .catch(() => {
-        ["btn-full", "btn-only"].forEach(id => {
+        ["btn-full", "btn-only", "btn-pool"].forEach(id => {
           const b = document.getElementById(id);
           b.href = "https://github.com/Moskyera/fullnodedev/releases/latest";
           b.textContent = "Open GitHub Releases";
